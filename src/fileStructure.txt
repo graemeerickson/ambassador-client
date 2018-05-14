@@ -1,0 +1,10 @@
+App.js
+  Nav (user, updateUser)
+  Login (user, updateUser)
+  Profile (user)
+  AmbassadorRegistration (user, updateUser)
+  HomebuyerRegistration (user, updateUser)
+  Home (user)
+    MapWidget (user)
+      HomebuyerTargetLocation (user)
+      Marker
