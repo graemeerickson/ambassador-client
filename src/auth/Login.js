@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
+import { SERVER_URL } from '../constants';
 
 class Login extends Component {
   constructor(props) {
@@ -16,7 +17,7 @@ class Login extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('/auth/login', this.state)
+    axios.post(SERVER_URL + '/auth/login', this.state)
     .then(result => {
       console.log('Success:', result);
       // add newly-received token to localStorage

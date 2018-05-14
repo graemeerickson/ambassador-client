@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
+import { SERVER_URL } from '../constants';
 const GOOGLEMAPS_API_KEY = process.env.REACT_APP_GOOGLEMAPS_API_KEY;
 
 class HomebuyerRegistration extends Component {
@@ -34,7 +35,7 @@ class HomebuyerRegistration extends Component {
       .then(res => {
         console.log('Successfully reached Google Maps API:', res);
         this.setState({ locationCoordinates: [res.data.results[0].geometry.location.lng, res.data.results[0].geometry.location.lat] }, () => {
-          axios.post('/auth/signup', this.state)
+          axios.post(SERVER_URL + '/auth/signup', this.state)
           .then(result => {
             console.log('Successfully added user to db:', result);
             // add newly-received token to localStorage

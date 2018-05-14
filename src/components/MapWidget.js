@@ -3,6 +3,7 @@ import ReactMapboxGL, { Marker, Popup }  from 'react-mapbox-gl';
 import HomebuyerTargetLocation from './HomebuyerTargetLocation';
 import mapMarkerIcon from '../marker-icon.svg';
 import axios from 'axios';
+import { SERVER_URL } from '../constants';
 
 const MAPBOX_API_KEY = process.env.REACT_APP_MAPBOXAPI_KEY;
 const Map = ReactMapboxGL({ accessToken: MAPBOX_API_KEY });
@@ -25,7 +26,7 @@ class MapWidget extends Component {
   }
 
   getTargetLocation = () => {
-    axios.get(`/user/${this.props.user.id}`)
+    axios.get(SERVER_URL + `/user/${this.props.user.id}`)
       .then(res => {
         if (res.data.role[0] === 'Prospective Homebuyer') {
           this.setState({
@@ -63,7 +64,7 @@ class MapWidget extends Component {
       display: this.state.popupDisplayStatus
     }
 
-    axios.get('/ambassadors')
+    axios.get(SERVER_URL + '/ambassadors')
       .then(res => {
         markers = res.data.map( ambassador => {
           return (

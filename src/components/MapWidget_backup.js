@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import ReactMapboxGL, { Marker, Popup, Cluster }  from 'react-mapbox-gl';
 import mapMarkerIcon from '../marker-icon.svg';
 import axios from 'axios';
+import { SERVER_URL } from '../constants';
 const MAPBOX_API_KEY = process.env.REACT_APP_MAPBOXAPI_KEY;
 
 const Map = ReactMapboxGL({ accessToken: `${MAPBOX_API_KEY}` });
@@ -18,7 +19,7 @@ class MapWidget extends Component {
   }
 
   componentDidMount() {
-    axios.get(`/user/${this.props.user.id}`)
+    axios.get(SERVER_URL + `/user/${this.props.user.id}`)
       .then(res => {
         this.setState({
           homeAddressStreet: res.data.homeAddressStreet,

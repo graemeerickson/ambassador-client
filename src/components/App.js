@@ -10,6 +10,7 @@ import Nav from '../layout/Nav';
 import Profile from './Profile';
 import AmbassadorRegistration from './AmbassadorRegistration';
 import HomebuyerRegistration from './HomebuyerRegistration';
+import { SERVER_URL } from '../constants';
 
 class App extends Component {
   constructor(props){
@@ -28,7 +29,7 @@ class App extends Component {
     let token = localStorage.getItem('loginToken');
     if (token) {
       // there is a token in localStorage; validate it
-      axios.post('/auth/me/from/token', {
+      axios.post(SERVER_URL + '/auth/me/from/token', {
         headers: { 'Authorization': `Bearer ${token}` }
       })
       .then(response => {
