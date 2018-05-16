@@ -1,1 +1,1 @@
-module.exports.SERVER_URL = 'https://ambassador-server.herokuapp.com/'
+module.exports.SERVER_URL = 'https://ambassador-server.herokuapp.com'
