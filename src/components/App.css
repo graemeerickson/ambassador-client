@@ -1,4 +1,9 @@
 /* CUSTOM STYLES */
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+}
 input {
   border-radius: 5px;
   margin-bottom: 5px;
@@ -9,9 +14,6 @@ label {
 nav {
   background-color: white;
   border-bottom: 1px solid black;
-  /*height: 50px;*/
-  /*padding: 10px 0;*/
-  /*text-align: right;*/
 }
 nav a {
   color: black;
@@ -30,84 +32,83 @@ nav a:hover {
 .ambassador-contact-btn {
   font-size: 12px;
   height: 30px;
-  width: 105px;
-}
-.btn {
-  background-color: rgb(85,119,187);
-  border-color: rgb(85,119,187);
-}
-.footer {
-  background-color: white;
-  border-top: 1px solid black;
-  bottom: 0;
-  height: 25px;
-  position: fixed;
+  margin-top: 10px;
   text-align: center;
-  width: 100%;
+  width: 80%;
 }
-.footer-text {
-  color: rgb(85,119,187);
-  cursor: default;
-  font-size: 11px;
-}
-.registration-input-group {
-  width: 600px;
-}
-.splash-area {
-  background-image: url('../img/ambassador_background_image_cropped.png');
-  position: absolute;
-  width: 77%;
-  height: 350px;
-  opacity: 0.2;
-  filter: alpha(opacity=20);
-}
-.home-jumbotron {
-  /*background-image: url('../img/ambassador_background_image_cropped.png');
-  /*margin-bottom: 0px;*/
-  background-size: contain;
-  background-repeat: no-repeat;
-  height: 350px;
-  /*color: white;*/
-  /*text-shadow: black 0.3em 0.3em 0.3em;*/
-}
-.logo {
-  height: 55px;
-  /*float: left;*/
-  width: 55px;
-}
-.nav-link {
-  display: block;
-  float: right;
-  /*text-align: right;*/
-}
-.profile-paragraph {
-  margin-left: 10px;
-}
-.role-button {
-  margin: 10px;
-}
-
-/* DEFAULT STYLES */
-/*.App {
-  text-align: center;
-}*/
-
 .App-header {
   background-color: #222;
   color: white;
   height: 150px;
   padding: 20px;
 }
-
-.App-title {
-  font-size: 1.5em;
+.benefits-icon {
+  color: rgb(85,119,187);
+  font-size: 20px;
 }
-
-.App-intro {
-  font-size: large;
+.benefits-list {
+  margin-left:20px;
 }
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.benefits-list-item {
+  font-size: 20px;
+}
+.benefits-list-item-icon {
+  text-align: center;
+}
+.btn {
+  background-color: rgb(85,119,187);
+  border-color: rgb(85,119,187);
+}
+.card {
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
+.card-text {
+  color: #8F9193;
+}
+.card-title {
+  font-size: 22px;
+}
+.home-jumbotron {
+  background-color: #FFFFFF;
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 350px;
+  margin-bottom: 17px;
+}
+.logo {
+  height: 55px;
+  width: 55px;
+}
+.nav-item {
+  display: inline;
+  padding-bottom: 13px;
+}
+.nav-item .active {
+  border-bottom: 5px solid rgb(85,119,187);
+  padding-bottom: 13px;
+}
+.nav-link {
+  padding-top: 20px;
+}
+.nav-list {
+  list-style-type: none;
+  margin-bottom: 0;
+}
+.profile-paragraph {
+  margin-left: 10px;
+}
+.registration-input-group {
+  width: 70%;
+}
+.role-button {
+  margin: 10px;
+}
+.splash-area {
+  background: linear-gradient(to right, #FFFFFF, #FFFFFF 1%, transparent), url('../img/ambassador_background_image_cropped.png');
+  filter: alpha(opacity=20);
+  height: 350px;
+  opacity: 0.5;
+  position: absolute;
+  width: 77%;
 }

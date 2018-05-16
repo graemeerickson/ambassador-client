@@ -1,14 +1,13 @@
 import React, {Component} from 'react';
 import ReactMapboxGL, { Marker, Popup }  from 'react-mapbox-gl';
 import HomebuyerTargetLocation from './HomebuyerTargetLocation';
-import mapMarkerIcon from '../marker-icon.svg';
 import axios from 'axios';
+import mapMarkerIcon from '../marker-icon.svg';
 import { SERVER_URL } from '../constants';
 
 const MAPBOX_API_KEY = process.env.REACT_APP_MAPBOXAPI_KEY;
 const Map = ReactMapboxGL({ accessToken: MAPBOX_API_KEY });
 let markers;
-let popupDisplayStatus;
 
 class MapWidget extends Component {
   constructor(props) {
@@ -17,7 +16,7 @@ class MapWidget extends Component {
       targetAddress: props.user.targetAddress,
       centerLong: props.user.locationCoordinates[0],
       centerLat: props.user.locationCoordinates[1],
-      popupDisplayStatus: 'none'
+      isOpen: false
     }
   }
 
@@ -44,48 +43,33 @@ class MapWidget extends Component {
       })
   }
 
-  togglePopup(e) {
-    console.log('e.target:',e.target)
-    console.log('e.target.parentNode.nextSibling:',e.target.parentNode.nextSibling)
-    let newDisplayStatus;
-    if (this.state.popupDisplayStatus === 'none') {
-      newDisplayStatus = 'block';
-    } else {
-      newDisplayStatus = 'none';
-    }
-
-    this.setState({
-      popupDisplayStatus: newDisplayStatus
-    })
+  togglePopup = (e) => {
+    let currentMarkerPopup = e.target.parentNode.nextSibling;
+    currentMarkerPopup.style.display === 'none' ? currentMarkerPopup.style.display = 'block' : currentMarkerPopup.style.display = 'none';
   }
 
   render() {
-    const popupStyle = {
-      display: this.state.popupDisplayStatus
-    }
-
     axios.get(SERVER_URL + '/ambassadors')
       .then(res => {
-        markers = res.data.map( ambassador => {
+        markers = res.data.map( (ambassador, index) => {
           return (
             <div>
               <Marker
                 coordinates={[ambassador.locationCoordinates[0], ambassador.locationCoordinates[1]]}
                 anchor="bottom"
-                onClick={this.togglePopup.bind(this)}>
+                onClick={this.togglePopup}
+                key={index} >
                 <img alt="ambassador-popup-info" src={mapMarkerIcon} height="45px" width="25px" data-long={ambassador.locationCoordinates[0]} data-lat={ambassador.locationCoordinates[1]} data-firstname={ambassador.firstName} data-lastname={ambassador.lastName} data-email={ambassador.email} data-phonenumber={ambassador.phoneNumber} />
               </Marker>
               <Popup
                 coordinates={[ambassador.locationCoordinates[0],ambassador.locationCoordinates[1]]}
-                offset={{
-                  'bottom-left': [12, -38],  'bottom': [0, -38], 'bottom-right': [-12, -38]
-                }}
-                anchor="bottom" style={popupStyle}>
+                anchor="top-left"
+                style={{display: this.state.isOpen ? 'block' : 'none'}} >
                 <span>Ambassador: {ambassador.firstName}&nbsp;{ambassador.lastName}</span><br/>
                 <span>Phone: {ambassador.phoneNumber}</span><br/>
                 <span>Email: {ambassador.email}</span><br/>
                 <button className="btn btn-primary btn-sm text-center ambassador-contact-btn">Contact {ambassador.firstName}</button>
-              </Popup>
+              </Popup> }
             </div>
           )
         })
@@ -99,7 +83,7 @@ class MapWidget extends Component {
             <Map
               style={"mapbox://styles/mapbox/streets-v9"}
               containerStyle={{
-                height: "500px",
+                height: "550px",
                 width: "100%"
               }}
               center={[this.state.centerLong, this.state.centerLat]}

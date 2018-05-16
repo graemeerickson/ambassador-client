@@ -34,19 +34,19 @@ class AmbassadorRegistration extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Form submitted:', this.state);
+    console.log('Form submitted');
     // pass address to Google Maps API to retrieve long/lat coordinates before adding user to db
     let homeAddressStreetTransformed = this.state.homeAddressStreet.replace(' ','+');
-    let homeAddressCityTransformed = this.state.homeAddressStreet.replace(' ','+');
-    let homeAddressStateTransformed = this.state.homeAddressStreet.replace(' ','+');
-    let homeAddressZipTransformed = this.state.homeAddressStreet.replace(' ','+');
+    let homeAddressCityTransformed = this.state.homeAddressCity.replace(' ','+');
+    let homeAddressStateTransformed = this.state.homeAddressState.replace(' ','+');
+    let homeAddressZipTransformed = this.state.homeAddressZip.replace(' ','+');
     axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${homeAddressStreetTransformed}+${homeAddressCityTransformed},+${homeAddressStateTransformed}+${homeAddressZipTransformed}&key=${GOOGLEMAPS_API_KEY}`)
       .then(res => {
-        console.log('Successfully reached Google Maps API:', res);
+        console.log('Successfully reached Google Maps API');
         this.setState({ locationCoordinates: [res.data.results[0].geometry.location.lng, res.data.results[0].geometry.location.lat] }, () => {
           axios.post(SERVER_URL + '/auth/signup', this.state)
           .then(result => {
-            console.log('Successfully added user to db:', result);
+            console.log('Successfully added user to db');
             // add newly-received token to localStorage
             localStorage.setItem('loginToken', result.data.token);
             // update user with a call to App.js
@@ -58,7 +58,7 @@ class AmbassadorRegistration extends Component {
   }
 
   render() {
-    if (this.props.user) { return(<Redirect to="/profile" />); }
+    if (this.props.user) { return(<Redirect to="/" />); }
 
     return(
       <div>
@@ -72,28 +72,54 @@ class AmbassadorRegistration extends Component {
             </div>
             <input name="firstName" type="text" className="form-control" placeholder="Johnny" aria-label="First name" aria-describedby="first-name" value={this.state.firstName} onChange={this.handleFirstNameChange} required />
           </div>
-          <div className="form-group form-inline">
-            <label htmlFor="lastName">Last name</label>
-            <input name="lastName" type="text" className="form-control" placeholder="Appleseed" value={this.state.lastName} onChange={this.handleLastNameChange} />
+          <div className="input-group mb-3 registration-input-group">
+            <div className="input-group-prepend">
+              <span className="input-group-text" id="last-name">Last name</span>
+            </div>
+            <input name="lastName" type="text" className="form-control" placeholder="Appleseed" aria-label="Last name" aria-describedby="last-name" value={this.state.lastName} onChange={this.handleLastNameChange} required />
           </div>
-          <div className="form-group form-inline">
-            <label htmlFor="email">Email address</label>
-            <input name="email" type="email" className="form-control" placeholder="johnny@appleseed.com" value={this.state.email} onChange={this.handleEmailChange} required />
+          <div className="input-group mb-3 registration-input-group">
+            <div className="input-group-prepend">
+              <span className="input-group-text" id="email">Email</span>
+            </div>
+            <input name="email" type="email" className="form-control" placeholder="johnny@appleseed.com" aria-label="Email" aria-describedby="email" value={this.state.email} onChange={this.handleEmailChange} required />
           </div>
-          <div className="form-group form-inline">
-            <label htmlFor="password">Password</label>
-            <input name="password" type="password" className="form-control" value={this.state.password} onChange={this.handlePasswordChange} required />
+          <div className="input-group mb-3 registration-input-group">
+            <div className="input-group-prepend">
+              <span className="input-group-text" id="password">Password</span>
+            </div>
+            <input name="password" type="password" className="form-control" aria-label="Password" aria-describedby="password" value={this.state.password} onChange={this.handlePasswordChange} required />
           </div>
-          <div className="form-group form-inline">
-            <label htmlFor="phoneNumber">Phone number</label>
-            <input name="phoneNumber" type="text" className="form-control" placeholder="555-555-5555" value={this.state.phoneNumber} onChange={this.handlePhoneNumberChange} />
+          <div className="input-group mb-3 registration-input-group">
+            <div className="input-group-prepend">
+              <span className="input-group-text" id="phone">Phone number</span>
+            </div>
+            <input name="phoneNumber" type="text" className="form-control" placeholder="206-555-5555" aria-label="Phone" aria-describedby="phone-number" value={this.state.phoneNumber} onChange={this.handlePhoneNumberChange} />
           </div>
-          <div className="form-group">
-            <label htmlFor="homeAddress">Home address</label>
-            <input name="homeAddressStreet" type="text" className="form-control" placeholder="123 Main Street" value={this.state.homeAddressStreet} onChange={this.handleHomeAddressStreetChange} required />
-            <input name="homeAddressCity" type="text" className="form-control" placeholder="Seattle" value={this.state.homeAddressCity} onChange={this.handleHomeAddressCityChange} required />
-            <input name="homeAddressState" type="text" className="form-control" placeholder="WA" value={this.state.homeAddressState} onChange={this.handleHomeAddressStateChange} required />
-            <input name="homeAddressZip" type="text" className="form-control" placeholder="98101" value={this.state.homeAddressZip} onChange={this.handleHomeAddressZipChange} required />
+          <br/><label htmlFor="homeAddress">Home address:</label>
+          <div className="input-group mb-3 registration-input-group">
+            <div className="input-group-prepend">
+              <span className="input-group-text" id="homeAddressStreet">Street</span>
+            </div>
+            <input name="homeAddressStreet" type="text" className="form-control" placeholder="400 Broad St" aria-label="Home address (street)" aria-describedby="home-address-street" value={this.state.homeAddressStreet} onChange={this.handleHomeAddressStreetChange} required />
+          </div>
+          <div className="input-group mb-3 registration-input-group">
+            <div className="input-group-prepend">
+              <span className="input-group-text" id="homeAddressCity">City</span>
+            </div>
+            <input name="homeAddressCity" type="text" className="form-control" placeholder="Seattle" aria-label="Home address (city)" aria-describedby="home-address-city" value={this.state.homeAddressCity} onChange={this.handleHomeAddressCityChange} required />
+          </div>
+          <div className="input-group mb-3 registration-input-group">
+            <div className="input-group-prepend">
+              <span className="input-group-text" id="homeAddressState">State</span>
+            </div>
+            <input name="homeAddressState" type="text" className="form-control" placeholder="WA" aria-label="Home address (state)" aria-describedby="home-address-state" value={this.state.homeAddressState} onChange={this.handleHomeAddressStateChange} required />
+          </div>
+          <div className="input-group mb-3 registration-input-group">
+            <div className="input-group-prepend">
+              <span className="input-group-text" id="homeAddressZip">Zip</span>
+            </div>
+            <input name="homeAddressZip" type="text" className="form-control" placeholder="98109" aria-label="Home address (zip)" aria-describedby="home-address-zip" value={this.state.homeAddressZip} onChange={this.handleHomeAddressZipChange} required />
           </div>
           <button type="submit" className="btn btn-primary">Submit</button>
         </form>
