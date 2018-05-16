@@ -31,8 +31,6 @@ class HomebuyerRegistration extends Component {
     console.log('Form submitted');
     // pass address to Google Maps API to retrieve long/lat coordinates before adding user to db
     let targetAddressTransformed = this.state.targetAddress.replace(' ','+');
-    console.log('google key', GOOGLEMAPS_API_KEY);
-    console.log(`https://maps.googleapis.com/maps/api/geocode/json?address=${targetAddressTransformed}&key=${GOOGLEMAPS_API_KEY}`);
     axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${targetAddressTransformed}&key=${GOOGLEMAPS_API_KEY}`)
       .then(res => {
         console.log('Successfully reached Google Maps API', res.data.results);
