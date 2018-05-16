@@ -3,7 +3,6 @@ import ReactMapboxGL, { Marker, Popup }  from 'react-mapbox-gl';
 import HomebuyerTargetLocation from './HomebuyerTargetLocation';
 import axios from 'axios';
 import mapMarkerIcon from '../marker-icon.svg';
-import 'mapbox-gl/dist/mapbox-gl.css';
 import { SERVER_URL } from '../constants';
 
 const MAPBOX_API_KEY = process.env.REACT_APP_MAPBOXAPI_KEY;
