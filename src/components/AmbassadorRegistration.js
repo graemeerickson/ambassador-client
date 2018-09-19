@@ -22,13 +22,10 @@ class AmbassadorRegistration extends Component {
     };
   }
 
-  handleChange = e => {
-    this.setState({ [e.target.id]: e.target.value });
-  }
+  handleChange = e => { this.setState({ [e.target.id]: e.target.value }); }
 
   handleSubmit = e => {
     e.preventDefault();
-    console.log('Form submitted');
     // pass address to Google Maps API to retrieve long/lat coordinates before adding user to db
     let homeAddressStreetTransformed = this.state.homeAddressStreet.replace(' ','+');
     let homeAddressCityTransformed = this.state.homeAddressCity.replace(' ','+');
